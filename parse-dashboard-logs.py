@@ -19,7 +19,6 @@ def main():
     batch = []
     with open('./test-logs/dashboard-logs.subset.csv', mode='r', newline='') as file:
         reader = csv.reader(file, delimiter='\t')
-        next(reader)  # Skip header if present
 
         for row in reader:
             # Parse needed fields
