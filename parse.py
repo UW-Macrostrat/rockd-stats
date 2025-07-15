@@ -16,7 +16,7 @@ def send_batch(batch):
 
 def main():
     batch = []
-    with open('dashboard-logs.subset.csv', mode='r', newline='') as file:
+    with open('./test-logs/dashboard-logs.subset.csv', mode='r', newline='') as file:
         reader = csv.reader(file, delimiter='\t')
         next(reader)  # Skip header if present
 

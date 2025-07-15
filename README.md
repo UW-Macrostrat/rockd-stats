@@ -20,3 +20,7 @@ The project is meant to parse Traefik logs and post to rockd api, in order to st
    ```bash
    git clone https://github.com/davidsklar99/rockd-usage-stats.git
    cd rockd-usage-stats
+
+## Running
+   ```bash
+   ./run.sh
