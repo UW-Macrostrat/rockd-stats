@@ -1,1 +1,1 @@
-python3 parse-access-logs.py
+python3 get-data.py
