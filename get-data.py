@@ -30,28 +30,35 @@ with conn:
     with conn.cursor() as cursor:
         while True:
             # Keyset-based pagination using idvisit
-            cursor.execute(f"""
-                SELECT idvisit, location_latitude, location_longitude,
-                       visit_first_action_time, location_ip
-                FROM matomo_log_visit
-                WHERE idvisit > %s
-                  AND location_latitude IS NOT NULL
-                  AND location_latitude != 43.071000
-                ORDER BY idvisit ASC
+            cursor.execute("""
+                SELECT
+                    a.Idaction AS action_id,
+                    a.name AS url,
+                    lva.server_time AS date,
+                    lva.idvisitor AS ip,
+                    lva.idlink_va
+                FROM matomo_log_action a
+                LEFT JOIN matomo_log_link_visit_action lva
+                    ON lva.idlink_va = a.Idaction
+                WHERE a.name LIKE %s
+                    AND lva.idlink_va > %s
+                ORDER BY lva.idlink_va ASC
                 LIMIT %s
-            """, (last_id, BATCH_SIZE))
+            """, ("%dashboard%", last_id, BATCH_SIZE))
+
             
             rows = cursor.fetchall()
+
             if not rows:
                 break 
 
             # Prepare and send batch to API
             payload = [
                 {
-                    "lat": float(row[1]),
-                    "lng": float(row[2]),
-                    "date": str(row[3]),
-                    "ip": str(row[4])
+                    "lat": float([part.split('=')[1] for part in str(row[1]).split('?')[1].split('&') if part.startswith('lat=')][0]),
+                    "lng": float([part.split('=')[1] for part in str(row[1]).split('?')[1].split('&') if part.startswith('lng=')][0]),
+                    "date": str(row[2]),
+                    "ip": str(row[3])
                 }
                 for row in rows
             ]
