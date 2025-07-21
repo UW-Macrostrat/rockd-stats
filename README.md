@@ -16,4 +16,6 @@ The project is meant to parse Traefik logs and post to rockd api, in order to st
 
 ## Running
    ```bash
-   ./run.sh
+   docker build -t stats .
+   docker run --rm stats
+
