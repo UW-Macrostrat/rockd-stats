@@ -20,7 +20,8 @@ You can either run the script directly using
    ./run.sh
    ```
 
-    Or you can use the docker container by running
+Or you can use the docker container by running
+
    ```bash
    docker build -t stats .
    docker run --rm stats
