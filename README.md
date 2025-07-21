@@ -15,7 +15,7 @@ The project is meant to parse Traefik logs and post to rockd api, in order to st
    cd rockd-usage-stats
 
 ## Running
-    You can either run the script directly using 
+You can either run the script directly using 
     ```bash
    ./run.sh
 
