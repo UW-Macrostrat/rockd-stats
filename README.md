@@ -16,11 +16,13 @@ The project is meant to parse Traefik logs and post to rockd api, in order to st
 
 ## Running
 You can either run the script directly using 
-    ```bash
+   ```bash
    ./run.sh
+   ```
 
     Or you can use the docker container by running
    ```bash
    docker build -t stats .
    docker run --rm stats
+   ```
 
